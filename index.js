@@ -9,7 +9,7 @@ let range = Math.round(prompt('Enter your max number here.', '1'))
 
 // Verify that range number is an integer and above the minimum value of 1
 if (isNaN(range) || range <= 1) {
-    range.reload()
+    location.reload()
 } else {
     guess_range.innerHTML = `Your guess range is between 1 and ${range}, good luck!` 
 }
@@ -17,9 +17,11 @@ if (isNaN(range) || range <= 1) {
 // Create random number within range set by user
 let num = Math.floor(Math.random() * range) + 1
 
-function do_guess() {
+do_guess = () => {
+    let inputValue = document.getElementById('guess')
     let guess = Number(document.getElementById('guess').value)
     let message = document.getElementById('message') 
+    let retryBtn = document.getElementById('retry-btn')
     
     // Verifies that guessed number is an integer and within the range
     if(isNaN(guess)) {
@@ -33,10 +35,11 @@ function do_guess() {
             // Loops through guesses array and shows all the numbers user guessed
             for(let i=0; i<guesses.length; i++) {
                 message.innerHTML = `You got it in ${tries} tries! Good guess! <br> Before getting it correct you guessed: ${guesses}.`
-                console.log(`${guesses[i]}`)
             }  
             // Adds to amount of tried guesses
             tries++
+            // Shows button to reload page to try again
+            retryBtn.classList.remove('retry')
         } else if (num > guess) {
             message.innerHTML = `Your guess was too <strong>low</strong>. Try again!`
             tries++
@@ -51,6 +54,13 @@ function do_guess() {
             } else guesses.push(guess)
         }
     } 
+    // Empty values from the input field and refocus after guess
+    inputValue.value = ''
+    inputValue.focus()
+}
+
+do_retry = () => {
+    location.reload()
 }
 
 
