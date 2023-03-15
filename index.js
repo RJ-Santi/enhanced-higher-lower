@@ -20,6 +20,7 @@ let num = Math.floor(Math.random() * range) + 1
 do_guess = () => {
     let inputValue = document.getElementById('guess')
     let guess = Number(document.getElementById('guess').value)
+    let guessForm = document.getElementById('guess-form')
     let message = document.getElementById('message') 
     let success = document.getElementById('success')
     let retryBtn = document.getElementById('retry-btn')
@@ -36,12 +37,14 @@ do_guess = () => {
             // Loops through guesses array and shows all the numbers user guessed
             for(let i=0; i<guesses.length; i++) {
                 message.innerHTML = `You got it in ${tries} tries! Good guess!`
-                success.innerHTML = `Before getting it correct you guessed: ${guesses}.`
+                success.innerHTML = `Before getting it correct you guessed the following numbers: ${guesses}.`
             }  
             // Adds to amount of tried guesses
             tries++
             // Shows button to reload page to try again
             retryBtn.classList.remove('retry')
+            guessForm.classList.add('d-none')
+            guessForm.classList.remove('d-flex')
         } else if (num > guess) {
             message.innerHTML = `Your guess was too low. Try again!`
             tries++
