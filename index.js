@@ -21,6 +21,7 @@ do_guess = () => {
     let inputValue = document.getElementById('guess')
     let guess = Number(document.getElementById('guess').value)
     let message = document.getElementById('message') 
+    let success = document.getElementById('success')
     let retryBtn = document.getElementById('retry-btn')
     
     // Verifies that guessed number is an integer and within the range
@@ -34,20 +35,21 @@ do_guess = () => {
             guesses.push(guess)
             // Loops through guesses array and shows all the numbers user guessed
             for(let i=0; i<guesses.length; i++) {
-                message.innerHTML = `You got it in ${tries} tries! Good guess! <br> Before getting it correct you guessed: ${guesses}.`
+                message.innerHTML = `You got it in ${tries} tries! Good guess!`
+                success.innerHTML = `Before getting it correct you guessed: ${guesses}.`
             }  
             // Adds to amount of tried guesses
             tries++
             // Shows button to reload page to try again
             retryBtn.classList.remove('retry')
         } else if (num > guess) {
-            message.innerHTML = `Your guess was too <strong>low</strong>. Try again!`
+            message.innerHTML = `Your guess was too low. Try again!`
             tries++
             if(guesses.includes(guess)) {
                 alert('You\'ve already guessed this number.')
             } else guesses.push(guess)
         } else {
-            message.innerHTML = `Your guess was too <strong>high</strong>. Try again!`
+            message.innerHTML = `Your guess was too high. Try again!`
             tries++
             if(guesses.includes(guess)) {
                 alert('You\'ve already guessed this number.')
@@ -59,6 +61,7 @@ do_guess = () => {
     inputValue.focus()
 }
 
+// Reload page on button click
 do_retry = () => {
     location.reload()
 }
